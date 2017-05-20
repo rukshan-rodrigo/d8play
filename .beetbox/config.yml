@@ -1,0 +1,74 @@
+---
+# Vagrant settings.
+vagrant_memory: 2048
+
+# Beetbox settings.
+beet_domain: lightning.local
+beet_aliases:
+  - lightning.local
+beet_provision_playbook: build
+beet_root: "{{ beet_base }}/docroot"
+ssh_home: "{{ beet_base }}"
+
+# Apache settings.
+apache_vhosts:
+  - servername: "{{ beet_domain }}"
+    serveralias: "lightning.local"
+    documentroot: "{{ beet_root }}"
+    extra_parameters: "{{ apache_vhost_php_fpm_parameters }}"
+apache_mods_enabled:
+  - authn_core.load
+  - expires.load
+  - ldap.conf
+  - ldap.load
+  - proxy.load
+  - proxy_fcgi.load
+  - rewrite.load
+  - ssl.load
+
+# Databases.
+mysql_databases:
+  - name: "{{ beet_mysql_database }}"
+    encoding: utf8
+    collation: utf8_general_ci
+  - name: "lightning"
+    encoding: utf8
+    collation: utf8_general_ci
+
+# PHP settings.
+php_memory_limit: "284M"
+php_max_input_vars: 2500
+php_apc_shm_size: "128M"
+php_opcache_interned_strings_buffer: "32"
+php_packages:
+  - php5.6
+  - php5.6-cli
+  - php5.6-common
+  - php5.6-curl
+  - php5.6-dev
+  - php5.6-fpm
+  - php5.6-gd
+  - php5.6-intl
+  - php5.6-json
+  - php5.6-mcrypt
+  - php5.6-mbstring
+  - php5.6-mysql
+  - php5.6-opcache
+  - php5.6-readline
+  - php5.6-xml
+  - php5.6-zip
+  - php5.6-bcmath
+  - php5.6-ldap
+
+# MYSQL config.
+mysql_max_allowed_packet: "100M"
+
+# PhantomJS.
+phantomjs_webdriver: yes
+phantomjs_webdriver_port: 4444
+
+# Acquia hosts.
+known_hosts:
+ - staging-23474.prod.hosting.acquia.com
+ - web-23470.prod.hosting.acquia.com
+ - web-23471.prod.hosting.acquia.com
